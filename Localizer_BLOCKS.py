@@ -139,13 +139,21 @@ class Trial:
         self.responseChoice = responseChoice
         self.trialNumber = -1  #self.trialNumber is used after in makeTrials()
 
+    def wait(duration):
+        """ A function that waits """
+        start_time = time.perf_counter()
+        end_time = start_time + duration
+
+        while time.perf_counter() < end_time:
+            pass
+    
     def eegTrigger(self, triggerType):
         """ Send trigger for EEG """
         if useTriggers is True:
             parallel.setPortAddress(port)
             port.setData(triggerType)
             print(triggerType)
-            core.wait(0.1) #changed from 0.001 to 0.1 ms--nuShawn can't handle 0.001 ms
+            wait(0.1) #changed from 0.001 to 0.1 ms--nuShawn can't handle 0.001 ms
             port.setData(0)
 
     def doTrial(self):
